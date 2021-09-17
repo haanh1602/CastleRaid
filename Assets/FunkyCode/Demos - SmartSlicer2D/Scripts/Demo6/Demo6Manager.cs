@@ -2,36 +2,11 @@
 using UnityEngine;
 using Utilities2D;
 
-namespace Slicer2D.Demo {
-
-	/*	public class Demo6Manager : MonoBehaviour {
-			public GameObject bombPrefab;
-			public GameObject bouncerPrefab;
-			public Transform parent;
-
-			void Update () {
-				Vector2D pos = GetMousePosition ();
-
-				if (UnityEngine.Input.GetMouseButtonDown (0)) {
-					GameObject g = Instantiate (bombPrefab) as GameObject;
-					g.transform.position = new Vector3 ((float)pos.x, (float)pos.y, -4.75f);
-					g.transform.parent = transform;
-				}
-
-				if (UnityEngine.Input.GetMouseButtonDown (1)) {
-					GameObject g = Instantiate (bouncerPrefab) as GameObject;
-					g.transform.position = new Vector3 ((float)pos.x, (float)pos.y, -4.75f);
-					g.transform.parent = transform;
-				}
-			}
-
-			public static Vector2D GetMousePosition() {
-				return(new Vector2D (Camera.main.ScreenToWorldPoint (UnityEngine.Input.mousePosition)));
-			}
-		}*/
-
+namespace Slicer2D.Demo
+{
 	public class Demo6Manager : MonoBehaviour
 	{
+		
 		public GameObject bombPrefab;
 		public GameObject bouncerPrefab;
 		public Transform parent;
@@ -39,25 +14,28 @@ namespace Slicer2D.Demo {
 
 		void Update()
 		{
-			//Vector2D pos = GetMousePosition ();
-			if (UnityEngine.Input.GetMouseButton(0))
-			{
-				//Debug.Log(UnityEngine.Input.mousePosition.x + ", " + UnityEngine.Input.mousePosition.y + ", " + UnityEngine.Input.mousePosition.z);
-				//Debug.Log(pos.x + ", " + pos.y);
-				Vector3 mousePos = GetMousePosition3D();
-				//Debug.Log(mousePos.x + ", " + mousePos.y + ", " + mousePos.z);
-				GameObject g = Instantiate(bombPrefab) as GameObject;
-				g.transform.position = mousePos;
-				//new Vector3 ((float)pos.x, (float)pos.y, -4.75f);
-				g.transform.parent = transform;
+			if(UnityEngine.Input.touchCount > 0)
+            {
+				// multi-touch (for Mobile)
+				for (int i = 0; i < UnityEngine.Input.touchCount; i++)
+                {
+					Vector3 touchPos = GetTouchPosition3D(i);
+					GameObject g = Instantiate(bombPrefab) as GameObject;
+					g.transform.position = touchPos;
+					g.transform.parent = transform;
+				}
+            } else
+            {
+				// single-touch (for PC)
+				if (UnityEngine.Input.GetMouseButton(0))
+				{
+					Vector3 mousePos = GetMousePosition3D();
+					GameObject g = Instantiate(bombPrefab) as GameObject;
+					g.transform.position = mousePos;
+					g.transform.parent = transform;
+				}
 			}
-
-			/*			if (UnityEngine.Input.GetMouseButtonDown (1)) {
-							GameObject g = Instantiate (bouncerPrefab) as GameObject;
-							g.transform.position = new Vector3 ((float)pos.x, (float)pos.y, -4.75f);
-							g.transform.parent = transform;
-						}*/
-		}
+        }
 
 		public static Vector2D GetMousePosition()
 		{
@@ -76,5 +54,17 @@ namespace Slicer2D.Demo {
 			}
 			return res;
 		}
+
+		public static Vector3 GetTouchPosition3D (int index)
+        {
+			Vector3 res = new Vector3();
+			Ray ray = Camera.main.ScreenPointToRay(UnityEngine.Input.GetTouch(index).position);
+			float enter;
+			if (plane.Raycast(ray, out enter))
+			{
+				res = ray.GetPoint(enter);
+			}
+			return res;
+        }
 	}
 }
