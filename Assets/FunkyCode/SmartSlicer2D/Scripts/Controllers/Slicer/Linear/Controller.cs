@@ -110,8 +110,6 @@ namespace Slicer2D.Controller.Linear
 					if (input.GetSlicingEnabled(id))
 					{
 						LinearSlice(GetPair(id).ToPair2D());
-						//LinearSlice(new Pair2D(new Vector2(-0.18427826f, 42.99816513f), new Vector2(-0.18427899f, -16.92228889f)));
-						//Debug.Log(GetPair(id).ToPair2D().ToString());
 					}
 				}
 			}
@@ -126,7 +124,6 @@ namespace Slicer2D.Controller.Linear
 			float countY = minYVertex.y + 8f;
 			while (countY < maxYVertex.y)
 			{
-				Debug.Log(countY.ToString());
 				Vector2 leftCutPosition = new Vector2(minXVertex.x - 0.5f, countY);
 				Vector2 rightCutPosition = new Vector2(maxXVertex.x + 0.5f, countY);
 				LinearSlice(new Pair2D(leftCutPosition, rightCutPosition));

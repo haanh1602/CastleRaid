@@ -133,11 +133,6 @@ namespace Slicer2D
                 }
                 Vector2[] vertices = polygonCollider2D.points;
                 List<Vector2> worldVertices = new List<Vector2>();
-                /*                for (int i = 0; i < vertices.Length; i++)
-                                {
-                                    vertices[i] = 
-                                    //worldVertices.Add(Camera.main.WorldToScreenPoint(vertex));
-                                }*/
                 Vector2 minXVertex = vertices[0];
                 Vector2 maxXVertex = vertices[0];
                 Vector2 minYVertex = vertices[0];
