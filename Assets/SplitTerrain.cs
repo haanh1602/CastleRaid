@@ -133,16 +133,16 @@ namespace Slicer2D
                 }
                 Vector2[] vertices = polygonCollider2D.points;
                 List<Vector2> worldVertices = new List<Vector2>();
-/*                for (int i = 0; i < vertices.Length; i++)
-                {
-                    vertices[i] = 
-                    //worldVertices.Add(Camera.main.WorldToScreenPoint(vertex));
-                }*/
+                /*                for (int i = 0; i < vertices.Length; i++)
+                                {
+                                    vertices[i] = 
+                                    //worldVertices.Add(Camera.main.WorldToScreenPoint(vertex));
+                                }*/
                 Vector2 minXVertex = vertices[0];
                 Vector2 maxXVertex = vertices[0];
                 Vector2 minYVertex = vertices[0];
                 Vector2 maxYVertex = vertices[0];
-                
+
                 // Get minX, maxX, minY, maxY 
                 foreach (Vector2 vertex in vertices)
                 {
@@ -170,7 +170,7 @@ namespace Slicer2D
                 }
                 else
                 {
-                    linearControllerObject.SplitBigTerrain(Get2DPoint(child, minXVertex), Get2DPoint(child, maxXVertex), 
+                    linearControllerObject.SplitBigTerrain(Get2DPoint(child, minXVertex), Get2DPoint(child, maxXVertex),
                         Get2DPoint(child, minYVertex), Get2DPoint(child, maxYVertex));
                 }
             }
@@ -199,7 +199,7 @@ namespace Slicer2D
         public static Vector2 Get2DPoint(GameObject gameObject, Vector2 localPoint)
         {
             Vector3 offset = gameObject.transform.position;
-            return new Vector2(localPoint.x * gameObject.transform.localScale.x + offset.x, localPoint.y* gameObject.transform.localScale.y + offset.y);
+            return new Vector2(localPoint.x * gameObject.transform.localScale.x + offset.x, localPoint.y * gameObject.transform.localScale.y + offset.y);
         }
 
         public static Vector3 Get2DPointAsVector3(GameObject gameObject, Vector2 localPoint)
@@ -208,10 +208,10 @@ namespace Slicer2D
             return new Vector3(localPoint.x * gameObject.transform.localScale.x + offset.x, localPoint.y * gameObject.transform.localScale.y + offset.y, offset.z);
         }
 
-/*        public void SetSlicerColor(int colorInt)
-        {
-            visuals.slicerColor = slicerColors[colorInt];
-        }*/
+        /*        public void SetSlicerColor(int colorInt)
+                {
+                    visuals.slicerColor = slicerColors[colorInt];
+                }*/
 
         public static SplitTerrain Get()
         {
