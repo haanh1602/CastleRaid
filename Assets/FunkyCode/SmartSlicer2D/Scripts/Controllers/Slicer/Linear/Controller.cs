@@ -118,16 +118,17 @@ namespace Slicer2D.Controller.Linear
 		/**************************
 		 *        My Script       *
 		 **************************/
-		public void SplitBigTerrain(Vector2 minXVertex, Vector2 maxXVertex, Vector2 minYVertex, Vector2 maxYVertex)
+		public void SplitBigTerrain(Vector2 minXVertex, Vector2 maxXVertex, Vector2 minYVertex, Vector2 maxYVertex, float length)
 		{
 			Debug.Log(minYVertex.y + ", " + maxYVertex.y);
-			float countY = minYVertex.y + 8f;
+			float countY = minYVertex.y + length;
 			while (countY < maxYVertex.y)
 			{
 				Vector2 leftCutPosition = new Vector2(minXVertex.x - 0.5f, countY);
 				Vector2 rightCutPosition = new Vector2(maxXVertex.x + 0.5f, countY);
+				Debug.Log(countY.ToString());
 				LinearSlice(new Pair2D(leftCutPosition, rightCutPosition));
-				countY += 8f;
+				countY += length;
 			}
 		}
 

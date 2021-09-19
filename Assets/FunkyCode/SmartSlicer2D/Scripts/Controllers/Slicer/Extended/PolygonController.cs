@@ -22,6 +22,7 @@ namespace Slicer2D.Controller.Extended {
 
 			if (input.GetInputClicked()) {
 				PolygonSlice (pos);
+				Debug.Log(pos.ToString());
 			}
 		}
 

@@ -9,9 +9,7 @@ namespace Slicer2D
 {
     public class SplitTerrain : MonoBehaviour
     {
-        PolygonCollider2D polygonCollider2D;
-
-        public GameObject checkPoint;
+        public float length = 6.0f;
 
         public enum SliceType { Linear };
         //public static Color[] slicerColors = { Color.black, Color.green, Color.yellow, Color.red, new Color(1f, 0.25f, 0.125f) };
@@ -46,7 +44,6 @@ namespace Slicer2D
         public void Awake()
         {
             instance = this;
-            //polygonCollider2D = GetComponent<PolygonCollider2D>();
         }
 
         public void Start()
@@ -91,14 +88,14 @@ namespace Slicer2D
 
         public void LateUpdate()
         {
-            if (BlockedByUI() == false)
+/*            if (BlockedByUI() == false)
             {
                 InputController.zPosition = visuals.zPosition;
                 input.Update();
             }
             Vector2 pos = input.GetInputPosition();
             linearControllerObject.Update();
-            Draw();
+            Draw();*/
         }
 
         public void Draw()
@@ -158,15 +155,15 @@ namespace Slicer2D
                         maxYVertex = vertex;
                     }
                 }
-                if (Get2DPoint(child, maxYVertex).y - Get2DPoint(child, minYVertex).y < 8.0f)
+                if (Get2DPoint(child, maxYVertex).y - Get2DPoint(child, minYVertex).y < length)
                 {
-                    Debug.Log((maxYVertex.y - minYVertex.y).ToString());
+                    //Debug.Log((maxYVertex.y - minYVertex.y).ToString());
                     continue;
                 }
                 else
                 {
                     linearControllerObject.SplitBigTerrain(Get2DPoint(child, minXVertex), Get2DPoint(child, maxXVertex),
-                        Get2DPoint(child, minYVertex), Get2DPoint(child, maxYVertex));
+                        Get2DPoint(child, minYVertex), Get2DPoint(child, maxYVertex), length);
                 }
             }
             this.enabled = false;
