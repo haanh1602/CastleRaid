@@ -11,6 +11,7 @@ namespace Slicer2D.Demo
 		public Transform parent;
 		private static Plane plane = new Plane(Vector3.back, new Vector3(0, 0, 0));
 		private List<Touch> preTouches = new List<Touch>();
+		private Vector3 preMousePosition = new Vector3();
 
 		void Update()
 		{
@@ -46,12 +47,21 @@ namespace Slicer2D.Demo
 			else
 			{
 				// single-touch (for PC)
+				if (UnityEngine.Input.GetMouseButtonDown(0))
+                {
+					preMousePosition = ConvertTo3D(UnityEngine.Input.mousePosition);
+                }
 				if (UnityEngine.Input.GetMouseButton(0))
 				{
 					Vector3 mousePos = GetMousePosition3D();
-					GameObject g = Instantiate(bombPrefab) as GameObject;
-					g.transform.position = mousePos;
-					g.transform.parent = transform;
+					List<Vector3> points = GetPointBetweenInclude(preMousePosition, mousePos, 6.0f);
+					foreach (Vector3 point in points)
+					{
+						GameObject g = Instantiate(bombPrefab, point, Quaternion.identity) as GameObject;
+						//g.transform.position = touchPos;
+						g.transform.parent = transform;
+					}
+					preMousePosition = mousePos;
 				}
 			}
 			preTouches.Clear();
