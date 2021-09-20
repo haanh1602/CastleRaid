@@ -7,9 +7,15 @@ namespace Slicer2D.Demo {
 	public class Demo6BombUpdate : MonoBehaviour {
 		private float timer = 0;
 
-        private void Start()
+        private void Awake()
         {
 			Explode();
+
+		}
+
+        private void Start()
+        {
+			
 		}
 
         void Update() {

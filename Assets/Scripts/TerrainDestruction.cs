@@ -33,14 +33,19 @@ namespace Slicer2D.Demo
 						}
 					} else
                     {
-						List<Vector3> points = GetPointBetweenInclude(ConvertTo3D(preTouches[i].position), ConvertTo3D(touches[i].position), 6.0f);
-						//Vector3 touchPos = GetTouchPosition3D(i);
-						foreach (Vector3 point in points)
-						{
-							GameObject g = Instantiate(bombPrefab, point, Quaternion.identity) as GameObject;
-							//g.transform.position = touchPos;
-							g.transform.parent = transform;
+						if (Vector3.Distance(ConvertTo3D(preTouches[i].position), ConvertTo3D(touches[i].position)) >= 5.5f)
+                        {
+							List<Vector3> points = LinearCutPos(ConvertTo3D(preTouches[i].position), ConvertTo3D(touches[i].position), 2.75f);
+							LinearCut linearCutLine = LinearCut.Create(new Pair2(points[0], points[1]), 5.5f);
+							Slicing.LinearCutSliceAll(linearCutLine, Layer.Create());
+							
 						}
+						GameObject gPre = Instantiate(bombPrefab, ConvertTo3D(preTouches[i].position), Quaternion.identity) as GameObject;
+						//g.transform.position = touchPos;
+						gPre.transform.parent = transform;
+						GameObject g = Instantiate(bombPrefab, ConvertTo3D(touches[i].position), Quaternion.identity) as GameObject;
+						//g.transform.position = touchPos;
+						g.transform.parent = transform;
 					}
 				}
 			}
@@ -128,6 +133,17 @@ namespace Slicer2D.Demo
 				count += space;
             }
 			res.Add(end);
+			return res;
+        }
+
+		public List<Vector3> LinearCutPos(Vector3 start, Vector3 end, float explodeRadius)
+        {
+			List<Vector3> res = new List<Vector3>();
+			Vector3 direct = end - start;
+			Vector3 cutStartPos = start + direct * explodeRadius / Vector3.Distance(start, end);
+			Vector3 cutEndPos = end + (-direct) * explodeRadius / Vector3.Distance(start, end);
+			res.Add(cutStartPos);
+			res.Add(cutEndPos);
 			return res;
         }
 	}
