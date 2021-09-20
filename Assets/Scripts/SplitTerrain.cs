@@ -9,7 +9,7 @@ namespace Slicer2D
 {
     public class SplitTerrain : MonoBehaviour
     {
-        public float length = 6.0f;
+        public float length = 8f;
 
         public enum SliceType { Linear };
         //public static Color[] slicerColors = { Color.black, Color.green, Color.yellow, Color.red, new Color(1f, 0.25f, 0.125f) };
@@ -120,7 +120,7 @@ namespace Slicer2D
                     childs.Add(child);
                 }
             }
-            Debug.Log(childs.Count.ToString());
+            //Debug.Log(childs.Count.ToString());
             foreach (GameObject child in childs)
             {
                 PolygonCollider2D polygonCollider2D = child.GetComponent<PolygonCollider2D>();

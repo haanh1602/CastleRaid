@@ -7,12 +7,17 @@ namespace Slicer2D.Demo {
 	public class Demo6BombUpdate : MonoBehaviour {
 		private float timer = 0;
 
-		void Update() {
+        private void Start()
+        {
+			Explode();
+		}
+
+        void Update() {
 			// if not OnCollisionEnter2D() then destroy (Physics first)
 			Destroy(gameObject);
 		}
 
-		void OnCollisionEnter2D(Collision2D collision) {
+        void OnCollisionEnter2D(Collision2D collision) {
 			if (collision.collider.name.Contains("Terrain")) {
 				Explode();
 			}
@@ -25,7 +30,7 @@ namespace Slicer2D.Demo {
 			Polygon2D.defaultCircleVerticesCount = 15;
 
 			Polygon2D slicePolygon = Polygon2D.Create(Polygon2D.PolygonType.Circle, 4f);
-			Polygon2D slicePolygonDestroy = Polygon2D.Create(Polygon2D.PolygonType.Circle, 4.5f);
+			Polygon2D slicePolygonDestroy = Polygon2D.Create(Polygon2D.PolygonType.Circle, 6f);
 
 			slicePolygon = slicePolygon.ToOffset(pos);
 			slicePolygonDestroy = slicePolygonDestroy.ToOffset(pos);

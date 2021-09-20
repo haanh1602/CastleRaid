@@ -120,13 +120,13 @@ namespace Slicer2D.Controller.Linear
 		 **************************/
 		public void SplitBigTerrain(Vector2 minXVertex, Vector2 maxXVertex, Vector2 minYVertex, Vector2 maxYVertex, float length)
 		{
-			Debug.Log(minYVertex.y + ", " + maxYVertex.y);
+			//Debug.Log(minYVertex.y + ", " + maxYVertex.y);
 			float countY = minYVertex.y + length;
 			while (countY < maxYVertex.y)
 			{
 				Vector2 leftCutPosition = new Vector2(minXVertex.x - 0.5f, countY);
 				Vector2 rightCutPosition = new Vector2(maxXVertex.x + 0.5f, countY);
-				Debug.Log(countY.ToString());
+				//Debug.Log(countY.ToString());
 				LinearSlice(new Pair2D(leftCutPosition, rightCutPosition));
 				countY += length;
 			}

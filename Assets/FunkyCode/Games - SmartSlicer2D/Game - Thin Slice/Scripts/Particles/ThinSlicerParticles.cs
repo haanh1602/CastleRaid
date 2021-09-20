@@ -9,11 +9,11 @@ namespace Slicer2D {
 	public class ThinSlicerParticles {
 
 		static public void Create() {
-			if (Slicer2DController.Get().linearControllerObject.startedSlice == false) {
+			if (PolygonCutter.Get().linearControllerObject.startedSlice == false) {
 				return;
 			}
 
-			Vector2List points = Controller.Linear.Controller.GetLinearVertices(Slicer2DController.Get().linearControllerObject.GetPair(0),  Slicer2DController.Get().linearControllerObject.minVertexDistance);
+			Vector2List points = Controller.Linear.Controller.GetLinearVertices(PolygonCutter.Get().linearControllerObject.GetPair(0),  PolygonCutter.Get().linearControllerObject.minVertexDistance);
 			
 			if (points.Count() < 3) {
 				return;

@@ -12,7 +12,7 @@ namespace Slicer2D {
 
 		void Start () {
 			// Getting slicer input controller
-			controller = GetComponent<Slicer2DController>().input;
+			controller = GetComponent<PolygonCutter>().input;
 			
 			// Enabling input events programming
 			controller.SetRawInput(false);

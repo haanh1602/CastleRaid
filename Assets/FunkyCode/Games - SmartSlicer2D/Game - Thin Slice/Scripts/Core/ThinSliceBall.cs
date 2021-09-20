@@ -84,11 +84,11 @@ namespace Slicer2D {
 		// Ball vs Slice Collision
 		public void BallToSlicerCollision() {
 
-			if (Math2D.Circle.IntersectLine(Slicer2DController.Get().linearControllerObject.GetPair(0).ToPair2D(), new Vector2D(transform.position), radius)) {
+			if (Math2D.Circle.IntersectLine(PolygonCutter.Get().linearControllerObject.GetPair(0).ToPair2D(), new Vector2D(transform.position), radius)) {
 				ThinSlicerParticles.Create();
 
 				// Remove Current Slicing Process
-				Slicer2DController.Get().complexControllerObject.pointsList[0].Clear();
+				PolygonCutter.Get().complexControllerObject.pointsList[0].Clear();
 			}
 		}
 	}

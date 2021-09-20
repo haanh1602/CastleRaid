@@ -24,7 +24,7 @@ namespace Slicer2D {
 			// Add Particles if slice is succesful
 			if (CutObject == null) {
 				ThinSlicerParticles.Create();
-				Slicer2DController.Get().complexControllerObject.pointsList[0].Clear();
+				PolygonCutter.Get().complexControllerObject.pointsList[0].Clear();
 				return(false);
 			}
 

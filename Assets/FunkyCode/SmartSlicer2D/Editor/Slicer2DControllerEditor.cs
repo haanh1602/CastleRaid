@@ -5,16 +5,16 @@ using Utilities2D;
 
 namespace Slicer2D {
 	
-	[CustomEditor(typeof(Slicer2DController))]
+	[CustomEditor(typeof(PolygonCutter))]
 	public class Slicer2DControllerEditor : Editor {
 		static bool visualsFoldout = true;
 		static bool foldout = true;
 		static bool lineEndFoldout = true;
 
 		override public void OnInspectorGUI() {
-			Slicer2DController script = target as Slicer2DController;
+			PolygonCutter script = target as PolygonCutter;
 
-			script.sliceType = (Slicer2DController.SliceType)EditorGUILayout.EnumPopup ("Slicer Type", script.sliceType);
+			script.sliceType = (PolygonCutter.SliceType)EditorGUILayout.EnumPopup ("Slicer Type", script.sliceType);
 			script.sliceLayer.SetLayerType((LayerType)EditorGUILayout.EnumPopup ("Slicer Layer", script.sliceLayer.GetLayerType()));
 
 			EditorGUI.indentLevel = EditorGUI.indentLevel + 2;
@@ -47,93 +47,93 @@ namespace Slicer2D {
 		}
 
 
-		void DrawUIBlocking(Slicer2DController script) {
+		void DrawUIBlocking(PolygonCutter script) {
 			EditorGUI.indentLevel = EditorGUI.indentLevel + 1;
 			script.UIBlocking = EditorGUILayout.Toggle("UI Blocking", script.UIBlocking);
 			EditorGUI.indentLevel = EditorGUI.indentLevel - 1;
 		}
 
-		void SliceTypesUpdate(Slicer2DController script) {
+		void SliceTypesUpdate(PolygonCutter script) {
 			switch (script.sliceType) {
 
-				case Slicer2DController.SliceType.Linear:
+				case PolygonCutter.SliceType.Linear:
 					foldout = EditorGUILayout.Foldout(foldout, "Linear Slicer" );
 					if (foldout) {
 						EditorLinear(script.linearControllerObject);
 					}
 					break;
 
-				case Slicer2DController.SliceType.LinearCut:
+				case PolygonCutter.SliceType.LinearCut:
 					foldout = EditorGUILayout.Foldout(foldout, "Linear Cut Slicer" );
 					if (foldout) {
 						EditorLinearCut(script.linearCutControlelrObject);
 					}
 					break;
 
-				case Slicer2DController.SliceType.Complex:
+				case PolygonCutter.SliceType.Complex:
 					foldout = EditorGUILayout.Foldout (foldout, "Complex Slicer");
 					if (foldout) {
 						EditorComplex(script.complexControllerObject);
 					}
 					break;
 
-				case Slicer2DController.SliceType.ComplexCut:
+				case PolygonCutter.SliceType.ComplexCut:
 					foldout = EditorGUILayout.Foldout(foldout, "Complex Cut Slicer" );
 					if (foldout) {
 						EditorComplexCut(script.complexCutControllerObject);
 					}
 					break;
 
-				case Slicer2DController.SliceType.ComplexClick:
+				case PolygonCutter.SliceType.ComplexClick:
 					foldout = EditorGUILayout.Foldout (foldout, "Complex Click");
 					if (foldout) {
 						EditorComplexClick(script.complexClickControllerObject);
 					}
 					break;
 
-				case Slicer2DController.SliceType.Point:
+				case PolygonCutter.SliceType.Point:
 					foldout = EditorGUILayout.Foldout (foldout, "Point Slicer");
 					if (foldout) {
 						EditorPoint(script.pointControllerObject);
 					}
 					break;
 
-				case Slicer2DController.SliceType.Polygon:
+				case PolygonCutter.SliceType.Polygon:
 					foldout = EditorGUILayout.Foldout(foldout, "Polygon Slicer");
 					if (foldout) {
 						EditorPolygon(script.polygonControllerObject);
 					}
 					break;
 				
-				case Slicer2DController.SliceType.ComplexTrail:
+				case PolygonCutter.SliceType.ComplexTrail:
 					foldout = EditorGUILayout.Foldout (foldout, "Complex Trail Slicer");
 					if (foldout) {
 						EditorComplexTrail(script.complexTrailControllerObject);
 					}
 					break;
 
-				case Slicer2DController.SliceType.LinearTrail:
+				case PolygonCutter.SliceType.LinearTrail:
 					foldout = EditorGUILayout.Foldout (foldout, "Linear Trail Slicer");
 					if (foldout) {
 						EditorLinearTrail(script.linearTrailControllerObject);
 					}
 					break;
 
-				case Slicer2DController.SliceType.ComplexTracked:
+				case PolygonCutter.SliceType.ComplexTracked:
 					foldout = EditorGUILayout.Foldout (foldout, "Complex Tracked Slicer");
 					if (foldout) {
 						EditorComplexTracked(script.complexTrackedControllerObject);
 					}
 					break;
 
-				case Slicer2DController.SliceType.Explode:
+				case PolygonCutter.SliceType.Explode:
 					foldout = EditorGUILayout.Foldout (foldout, "Explode By Point");
 					if (foldout) {
 						EditorExplode(script.explodeControllerObject) ;
 					}
 					break;
 
-				case Slicer2DController.SliceType.Create:
+				case PolygonCutter.SliceType.Create:
 					foldout = EditorGUILayout.Foldout (foldout, "Polygon Creator");
 					if (foldout) {
 						EditorCreate(script.createControllerObject);

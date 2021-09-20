@@ -20,8 +20,8 @@ namespace Slicer2D.Demo
 				for (int i = 0; i < UnityEngine.Input.touchCount; i++)
                 {
 					Vector3 touchPos = GetTouchPosition3D(i);
-					GameObject g = Instantiate(bombPrefab) as GameObject;
-					g.transform.position = touchPos;
+					GameObject g = Instantiate(bombPrefab, touchPos, Quaternion.identity) as GameObject;
+					//g.transform.position = touchPos;
 					g.transform.parent = transform;
 				}
             } else

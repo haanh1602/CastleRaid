@@ -266,13 +266,14 @@ namespace Slicer2D.Complex {
 				return(result);
 			}
 
-			if (Math2D.SliceIntersectItself(slice)) {
-				Debug.LogWarning("Slicer2D: Complex Cut Slicer intersected with itself!");
+            if (Math2D.SliceIntersectItself(slice))
+            {
+                Debug.LogWarning("Slicer2D: Complex Cut Slicer intersected with itself!");
 
-				return(result);
-			}
+                return (result);
+            }
 
-			Vector2D startPoint = null;
+            Vector2D startPoint = null;
 			foreach (Vector2D id in slice) {
 				if (polygon.PointInPoly (id) == false) {
 					startPoint = id;

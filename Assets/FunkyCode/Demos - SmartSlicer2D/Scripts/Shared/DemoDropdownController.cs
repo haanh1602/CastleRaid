@@ -8,12 +8,12 @@ namespace Slicer2D.Demo {
 		public enum DropDownTypes {SlicerType, LayerType};
 		public DropDownTypes type;
 		
-		Slicer2DController controller;
+		PolygonCutter controller;
 		Dropdown dropdown;
 		
 		void Start () {
 			dropdown = GetComponent<Dropdown>();
-			controller = Slicer2DController.Get();
+			controller = PolygonCutter.Get();
 		}
 		
 		void Update () {

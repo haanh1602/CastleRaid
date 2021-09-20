@@ -12,7 +12,7 @@ namespace Slicer2D {
         }
 
         public static void LogWarning(string message) {
-            UnityEngine.Debug.LogWarning(message);
+            //UnityEngine.Debug.LogWarning(message);
         }
 
     }
