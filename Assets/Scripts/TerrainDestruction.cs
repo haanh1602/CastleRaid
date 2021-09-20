@@ -58,15 +58,30 @@ namespace Slicer2D.Demo
                 }
 				if (UnityEngine.Input.GetMouseButton(0))
 				{
-					Vector3 mousePos = GetMousePosition3D();
+					if (Vector3.Distance(preMousePosition, GetMousePosition3D()) >= 5.5f)
+					{
+						List<Vector3> points = LinearCutPos(preMousePosition, GetMousePosition3D(), 2.75f);
+						LinearCut linearCutLine = LinearCut.Create(new Pair2(points[0], points[1]), 5.5f);
+						Slicing.LinearCutSliceAll(linearCutLine, Layer.Create());
+
+					} else
+                    {
+						GameObject gPre = Instantiate(bombPrefab, preMousePosition, Quaternion.identity) as GameObject;
+						//g.transform.position = touchPos;
+						gPre.transform.parent = transform;
+						GameObject g = Instantiate(bombPrefab, GetMousePosition3D(), Quaternion.identity) as GameObject;
+						//g.transform.position = touchPos;
+						g.transform.parent = transform;
+					}
+					/*Vector3 mousePos = GetMousePosition3D();
 					List<Vector3> points = GetPointBetweenInclude(preMousePosition, mousePos, 6.0f);
 					foreach (Vector3 point in points)
 					{
 						GameObject g = Instantiate(bombPrefab, point, Quaternion.identity) as GameObject;
 						//g.transform.position = touchPos;
 						g.transform.parent = transform;
-					}
-					preMousePosition = mousePos;
+					}*/
+					preMousePosition = GetMousePosition3D();
 				}
 			}
 			preTouches.Clear();
