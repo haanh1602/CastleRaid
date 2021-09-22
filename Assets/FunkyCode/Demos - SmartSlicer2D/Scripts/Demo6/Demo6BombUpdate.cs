@@ -9,16 +9,20 @@ namespace Slicer2D.Demo {
 
         private void Awake()
         {
-			Explode();
-
+			
 		}
 
         private void Start()
         {
-			
+			Explode();
 		}
 
         void Update() {
+/*			timer += Time.deltaTime;
+			if(timer > 0.5f)
+            {
+				Destroy(gameObject);
+            }*/
 			// if not OnCollisionEnter2D() then destroy (Physics first)
 			Destroy(gameObject);
 		}

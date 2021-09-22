@@ -33,19 +33,19 @@ namespace Slicer2D.Demo
 						}
 					} else
                     {
+						/*GameObject gPre = Instantiate(bombPrefab, ConvertTo3D(preTouches[i].position), Quaternion.identity) as GameObject;
+						//g.transform.position = touchPos;
+						gPre.transform.parent = transform;*/
 						if (Vector3.Distance(ConvertTo3D(preTouches[i].position), ConvertTo3D(touches[i].position)) >= 5.5f)
                         {
 							List<Vector3> points = LinearCutPos(ConvertTo3D(preTouches[i].position), ConvertTo3D(touches[i].position), 2.75f);
 							LinearCut linearCutLine = LinearCut.Create(new Pair2(points[0], points[1]), 5.5f);
 							Slicing.LinearCutSliceAll(linearCutLine, Layer.Create());
-							
 						}
-						GameObject gPre = Instantiate(bombPrefab, ConvertTo3D(preTouches[i].position), Quaternion.identity) as GameObject;
-						//g.transform.position = touchPos;
-						gPre.transform.parent = transform;
 						GameObject g = Instantiate(bombPrefab, ConvertTo3D(touches[i].position), Quaternion.identity) as GameObject;
-						//g.transform.position = touchPos;
 						g.transform.parent = transform;
+						//g.transform.position = touchPos;
+
 					}
 				}
 			}
@@ -64,15 +64,13 @@ namespace Slicer2D.Demo
 						LinearCut linearCutLine = LinearCut.Create(new Pair2(points[0], points[1]), 5.5f);
 						Slicing.LinearCutSliceAll(linearCutLine, Layer.Create());
 
-					} else
-                    {
-						GameObject gPre = Instantiate(bombPrefab, preMousePosition, Quaternion.identity) as GameObject;
+					}
+						/*GameObject gPre = Instantiate(bombPrefab, preMousePosition, Quaternion.identity) as GameObject;
 						//g.transform.position = touchPos;
-						gPre.transform.parent = transform;
+						gPre.transform.parent = transform;*/
 						GameObject g = Instantiate(bombPrefab, GetMousePosition3D(), Quaternion.identity) as GameObject;
 						//g.transform.position = touchPos;
 						g.transform.parent = transform;
-					}
 					/*Vector3 mousePos = GetMousePosition3D();
 					List<Vector3> points = GetPointBetweenInclude(preMousePosition, mousePos, 6.0f);
 					foreach (Vector3 point in points)
@@ -161,5 +159,47 @@ namespace Slicer2D.Demo
 			res.Add(cutEndPos);
 			return res;
         }
+
+		void Explode()
+		{
+			Vector2D pos = new Vector2D(transform.position);
+
+			Polygon2D.defaultCircleVerticesCount = 15;
+
+			Polygon2D slicePolygon = Polygon2D.Create(Polygon2D.PolygonType.Circle, 4f);
+			Polygon2D slicePolygonDestroy = Polygon2D.Create(Polygon2D.PolygonType.Circle, 6f);
+
+			slicePolygon = slicePolygon.ToOffset(pos);
+			slicePolygonDestroy = slicePolygonDestroy.ToOffset(pos);
+
+			foreach (Sliceable2D id in Sliceable2D.GetListCopy())
+			{
+				Slice2D result = Slicer2D.API.PolygonSlice(id.shape.GetLocal().ToWorldSpace(id.transform), slicePolygon);
+				if (result.GetPolygons().Count > 0)
+				{
+					foreach (Polygon2D p in new List<Polygon2D>(result.GetPolygons()))
+					{
+						if (slicePolygonDestroy.PolyInPoly(p) == true)
+						{
+							result.GetPolygons().Remove(p);
+						}
+					}
+
+					if (result.GetPolygons().Count > 0)
+					{
+						id.PerformResult(result.GetPolygons(), new Slice2D());
+					}
+					else
+					{
+						// Polygon is Destroyed!!!
+						Destroy(id.gameObject);
+					}
+				}
+			}
+
+			//Destroy(gameObject);
+
+			Polygon2D.defaultCircleVerticesCount = 25;
+		}
 	}
 }
